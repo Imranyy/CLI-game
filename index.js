@@ -7,18 +7,26 @@ import chalkAnimation from 'chalk-animation';
 import { createSpinner } from 'nanospinner';
 import figlet from 'figlet';
 
-//console.log(chalk.bgBlue('hello'))
 
+
+//welcome player
 let prayerName;
 const sleep=(ms=2000)=>new Promise((r)=>setTimeout(r,ms));
 async function welcome(){
-    const glitchTitle=chalkAnimation.glitch('who wants to play?\n');
+    const msg='SnoopyPoopyPants\n';
+    figlet(msg,(err,data)=>{
+        console.log(chalk.yellow(data))
+    });
     await sleep();
-    glitchTitle.stop();
     
-    console.log(`${chalk.bgBlue('How to play\n')}`);
+    console.log(`${chalk.yellow('How to play')} 
+     :.This is a Quiz Game,
+     :.Provide your Player name. 
+     :.if you happen to win, there is a prize at the end.
+    `);
 };
 
+//ask name
 async function askName(){
  const answers=await inquirer.prompt({
     name:'player_name',
@@ -31,29 +39,59 @@ async function askName(){
     prayerName=answers.player_name;
 };
 
+//question1
 async function question1(){
     const answers= await inquirer.prompt({
         name:'question1',
         type:'list',
         message:'javascript was created in 10days then released on?\n',
         choices:[
-            'may 12rd 1995',
+            'may',
             'may 23rd 6777'
         ]
     });
-    return handleAnswer(answers.question1)
+    
+    return handleAnswer(answers.question1=='may')
 };
 
+//question2
+async function question2(){
+    const answers=await inquirer.prompt({
+        name:'question2',
+        type:'list',
+        message:'Who is the Best Programmer?\n',
+        choices:[
+            'imran',
+            'matano',
+            'job'
+        ]
+    });
+    return handleAnswer(answers.question2=='imran')
+}
+
+//handle answer
 async function handleAnswer(isCorrect){
     const spinner=createSpinner('Checking Answer...').start();
     await sleep();
     if(isCorrect){
-        spinner.success({text:`Nice work ${prayerName}`})
+        spinner.success({text:`Nice work ${prayerName}\n`})
+        await sleep();
     }else{
         spinner.error({text:`💀💀💀 Game Over, you lose ${prayerName}`});
         process.exit(1)
     }
 }
+
+/*try again
+async function tryAgain(){
+    const Try=await inquirer.prompt({
+        name:'try',
+        type:'input',
+        message:'Try again!'
+    })
+ await question1()
+}
+*/
 
 function winner(){
     console.clear();
@@ -63,8 +101,9 @@ function winner(){
     });
 }
 
-//call
+//calling functions
 await welcome();
 await askName();
 await question1();
+await question2();
 await winner();
