@@ -8,6 +8,7 @@ import figlet from 'figlet';
 
 let prayerName;
 let number;
+let easy;
 
 //welcome player
 const sleep=(ms=2000)=>new Promise((r)=>setTimeout(r,ms));
@@ -37,6 +38,21 @@ async function askName(){
     });
     prayerName=answers.player_name;
 };
+
+//hard or easy
+async function easyOrHard(){
+    const answer=await inquirer.prompt({
+        name:'easyorhard',
+        type:'list',
+        message:'Choose?',
+        choices:[
+            'Easy',
+            'Hard'
+        ]
+    });
+    easy=answer.easyorhard;
+    return handleEasyOrHard(answer.easyorhard)
+}
 
 //questions
 async function question1(){
@@ -222,18 +238,45 @@ async function tryAgain(){
 }
 */
 
+
+//handle easy or hard answer
+async function handleEasyOrHard(isCorrect){
+    const spinner=createSpinner('Starting...').start();
+    await sleep();
+    if(isCorrect=='Easy'){
+        spinner.success({text:`Lets Go ${easy}..🤓🤓\n`})
+        await sleep();
+        //await question1();
+        //await question2();
+        //await question3();
+        //await question4();
+        //await question5();
+        //await question6();
+        //await question7();
+        //await question8();
+        //await question9();
+        //await question10();
+    }else if(isCorrect=='Hard'){
+        spinner.success({text:`Lets Go ${easy}..💀💀\n`});
+        await sleep();
+    }
+}
+
+//winner
 function winner(){
     console.clear();
-    const msg=`Congrats ${prayerName} !\n`;
+    const msg=`Congrats, ${prayerName} !\n`;
     figlet(msg,(err,data)=>{
         console.log(gradient.pastel.multiline(data));
     });
-    console.log(chalk.yellow('https://wa.me/+254754423664'))
+    console.log(chalk.yellow('\n  https://wa.me/+254754423664'))
 }
 
 //calling functions
 await welcome();
 await askName();
+await easyOrHard();
+//
 await question1();
 await question2();
 await question3();
@@ -244,5 +287,6 @@ await question7();
 await question8();
 await question9();
 await question10();
+//
 //await last();
 await winner();
