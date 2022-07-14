@@ -1,16 +1,18 @@
 {
-  "name": "cli-game",
+  "name": "@imrany/cli-game",
   "version": "1.0.0",
-  "description": "",
+  "description": "cli-game",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "imran",
   "license": "ISC",
-  "bin":"./index.js",
+  "bin": {
+    "cli-game": "index.js"
+  },
   "dependencies": {
     "chalk": "^5.0.1",
     "chalk-animation": "^2.0.2",
@@ -18,5 +20,14 @@
     "gradient-string": "^2.0.1",
     "inquirer": "^9.0.0",
     "nanospinner": "^1.1.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Imranyy/CLI-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Imranyy/CLI-game/issues"
+  },
+  "homepage": "https://github.com/Imranyy/CLI-game#readme"
 }
